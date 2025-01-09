@@ -4,7 +4,8 @@ window.onload = function () {
             return {
                 filesData: [],
                 folderName: '',
-                currentFolderPath: ''
+                currentFolderPath: '',
+                newFilesData:[]
             }
         },
         updated () {
@@ -34,7 +35,9 @@ window.onload = function () {
             renameFiles(){
                 console.log(this.filesData);
                 console.log(this.folderName);
-                window.renameFiles(this.folderName)
+                console.log("------");
+                window.renameFiles(this.filesData,["v2025"])
+                console.log("------");
                 utools.showNotification('增加时间戳完成');
                 console.log(this.folderName);
                 this.clearFileNames();

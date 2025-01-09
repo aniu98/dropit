@@ -77,18 +77,26 @@ const checkDragFile = function (file) {
   file.isDirectory = stat.isDirectory();
   file.isFile = stat.isFile();
 }
-const renameFiles = function (fromPath, toPath) {
+const renameFiles = function (files, newfileNames) {
   //文件路径
-  const pathToFile = path.join(__dirname, fromPath)
-  const newPathToFile = path.join(__dirname, toPath)
-  //文件重命名
-  fs.rename(pathToFile, newPathToFile, function (err) {
-    if (err) {
-      throw err
-    } else {
-      console.log("Successfully renamed the file!")
-    }
-  })
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const filePath=path.dirname(file.path);
+    const newFilename=newfileNames[i]+path.extname(file.path);
+    const pathToFile = file.path;
+    const newPathToFile = path.join(filePath, newFilename)
+    //文件重命名
+    fs.rename(pathToFile, newPathToFile, function (err) {
+      if (err) {
+        throw err
+      } else {
+        console.log("Successfully renamed the file!")
+      }
+    })
+    console.log("end")
+  }
+
+
 }
 
 
