@@ -1,0 +1,25 @@
+{
+	"main": "index.html",
+	"logo": "logo.png",
+	"preload": "preload.js",
+	"features": [
+		{
+		  "code": "dropit",
+		  "explain": "this is a dropit plugin",
+			"cmds":["dropit","aniu"]
+		},
+		{
+			"code": "dropit_match_files",
+			"explain": "增加时间戳",
+			"cmds": [
+			  "match_files",
+			  {
+				"type": "files",
+				"label": "增加时间戳",
+				"minLength": 1,
+				"maxLength": 10
+			  }
+			]
+		  }
+	]
+}
