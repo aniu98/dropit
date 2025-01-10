@@ -69,18 +69,19 @@
 </head>
 
 <body>
-    <div class="box" div id="app">
+    <div class="box" div id="app" @click="dragFiles">
         <div class="left">
             <div class="nav" v-for="(item,index) in navlist" :class="choseNav==item.id? 'chose_nav':''"
                 @click="choseNavBtn(item.id,index)">
-
-                <span class="nav_title">{{item.laber}}</span>
+                <div>
+                    <span class="nav_title">{{item.laber}}</span>
+                </div>
             </div>
-             <div class="nav_bottom">
+            <div class="nav_bottom">
                 <div class="icon" @click="addHandle">➕</div>
-                <div class="icon"  @click="config">⚙️</div>
-                <div class="icon"  @click="help">❓</div>
-             </div>
+                <div class="icon" @click="config">⚙️</div>
+                <div class="icon" @click="help">❓</div>
+            </div>
 
         </div>
         <div class="right">
@@ -115,7 +116,7 @@
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 
     <script src="index.js"></script>
-    <script src="/assets/util.js"></script>
+    <script src="./assets/util.js"></script>
 </body>
 
 </html>
