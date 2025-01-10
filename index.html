@@ -62,7 +62,7 @@
     <div id="app" class="container">
   
             <!-- 左侧栏：按钮和图标 -->
-            <div class="col-md-2 sidebar">
+            <div class="col-md-2 sidebar"  @dragover.prevent @drop.prevent="dragFiles" >
  
                 <div class="mb-3" v-if="currentFolderPath">
                     当前路径：{{currentFolderPath}}
