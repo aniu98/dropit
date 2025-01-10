@@ -1,80 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>dropit</title>
-    <link rel="stylesheet" href="./assets/bootstrap-nightshade.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropit</title>
+    <link rel="stylesheet" href="./assets/bootstrap-nightshade.min.css">
+    <style>
+        body {
+            background-color: #f4f7fa;
+        }
+        #app {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 8px;
+        }
+        .sidebar {
+            background-color: #343a40;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sidebar .list-group-item {
+            background-color: #343a40;
+            color: #fff;
+            border: none;
+        }
+        .sidebar .list-group-item.active {
+            background-color: #495057;
+        }
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .table {
+            margin-top: 20px;
+            flex-grow: 1;
+        }
+        .btn {
+            margin-bottom: 10px;
+        }
+        .icon {
+            font-size: 24px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <div id="app" class="container pt-3" @dragover.prevent @drop.prevent>
-        <form autocomplete="off">
-            <div class="mb-3 row" v-if="currentFolderPath">
-                <div class="col-sm-12">
+    <div id="app" class="container">
+  
+            <!-- 左侧栏：按钮和图标 -->
+            <div class="col-md-2 sidebar">
+ 
+                <div class="mb-3" v-if="currentFolderPath">
                     当前路径：{{currentFolderPath}}
                 </div>
-            </div>
-            <div class="mb-3 row">
-                <label for="folderName" class="col-sm-2 col-form-label">新建文件夹名：</label>
-                <div class="col-sm-10">
+                <div class="mb-3">
+                    <label for="folderName" class="form-label">协议：</label>
                     <div class="input-group mb-3">
                         <input type="text" v-model="folderName" class="form-control" id="folderName" autofocus
-                            placeholder="请输入新文件夹名或选择已经存在的文件夹，列表文件将移动到此文件夹中">
+                            placeholder="件夹">
                         <button class="btn btn-outline-secondary" type="button" @click="selectFolderName">选文件夹</button>
                     </div>
                 </div>
+                <div class="d-grid gap-2">
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action active">default</a>
+                        <a class="list-group-item list-group-item-action">时间戳</a>
+                    </div>
+                </div>
+                <div class="icon">➕</div>
+                <div class="icon">⚙️</div>
+                <div class="icon">❓</div>
             </div>
-            <div class="mb-3 row">
-                <div class="col-sm-3">
-                    <button type="button" class="btn btn-info" @click="renameFiles(true)"
-                        :disabled="!filesData.length">增加时时间戳</button>
-                </div>
-                <div class="col-sm-3">
-                    <button type="button" class="btn btn-primary" @click="moveOrCopyFile()"
-                            v-if="filesData.length" :disabled="!folderName">移动到新文件夹</button>
-                    <button type="button" class="btn btn-primary" @click="createCurrentFolder()"
-                            v-if="!filesData.length" :disabled="!currentFolderPath||!folderName">新建文件夹</button>
-                </div>
-                <div class="col-sm-3">
-                    <button type="button" class="btn btn-info" @click="moveOrCopyFile(true)"
-                        :disabled="!filesData.length||!folderName">复制到新文件夹</button>
-                </div>
-                <div class="col-sm-3">
-                    <button type="button" class="btn btn-danger" @click="clearFileNames()"
-                        :disabled="!filesData.length&&!folderName">清空选择</button>
+            <!-- 右侧栏：文件列表 -->
+            <div class="col-md-10 content">
+                <table class="table table-striped table-hover" v-if="filesData.length">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 50px;">#</th>
+                            <th scope="col">文件完整路径</th>
+                            <th scope="col" style="width: 80px;">类型</th>
+                            <th scope="col" style="width: 80px;">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(file, index) in filesData" :key="index">
+                            <td>{{index + 1}}</td>
+                            <td>{{file.path}}</td>
+                            <td>
+                                <span class="badge bg-success" v-if="file.isDirectory">目录</span>
+                                <span class="badge bg-primary" v-if="file.isFile">文件</span>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm"
+                                    @click="removeFileFromList(file)">移除</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- 处理按钮 -->
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-success" @click="processFiles()">处理文件</button>
                 </div>
             </div>
-        </form>
-        <table class="table table-striped table-hover" v-if="filesData.length">
-            <caption></caption>
-            <thead>
-                <tr>
-                    <th scope="col" style="width: 50px;">#</th>
-                    <th scope="col" style="width: auto;">文件完整路径</th>
-                    <th scope="col" style="width: 80px;">类型</th>
-                    <th scope="col" style="width: 80px;">操作</th>
-                </tr>
-            </thead>
-            <tr :key="index" v-for="(file, index) in filesData">
-                <td>{{index+1}}</td>
-                <td>{{file.path}}</td>
-                <td>
-                    <span class="badge bg-success" v-if="file.isDirectory">目录</span>
-                    <span class="badge bg-primary" v-if="file.isFile">文件</span>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-danger btn-sm" @click="removeFileFromList(file)">移除</button>
-                </td>
-            </tr>
-        </table>
-        <div @dragover.prevent @drop.prevent="dragFiles" class="border rounded bg-light dashed">
-            <div class="d-flex p-2 justify-content-center align-items-center flex-column" style="height: 200px;">
-                <img src="logo.png" alt="拖动文件到此处" style="width:100px;" class="align-self-center"/>
-                <span class="align-self-center text-black-30">拖动文件到此处</span>
-            </div>
-        </div>
-    </div>
-</body>
-<script type="text/javascript" src="./assets/vue.js"></script>
-<script type="text/javascript" src="index.js"></script>
 
+    </div>
+
+    <script src="./assets/vue.js"></script>
+    <script src="./assets/util.js"></script>
+    <script src="index.js"></script>
+</body>
 </html>
