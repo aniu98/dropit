@@ -1,53 +1,47 @@
 window.onload = function () {
-    Vue.createApp({
-        data() {
-            return {
-                filesData: [],
-                folderName: '',
-                currentFolderPath: '',
-                newFilesData:[]
-            }
-        },
-        updated () {
-            document.querySelector('#folderName').focus()
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: "Hello World",
+            count: 6666,
+            dialogVisible: false,
+            choseNav: 1,
+            content: "右侧标题1",
+            formInfo: {
+                laber: '',
+                id: ''
+            },
+            navlist: [
+                {
+                    id: 1,
+                    laber: '标题1',
+                }
+            ]
         },
         methods: {
-            selectFolderName() {
-                const directoryNames = utools.showOpenDialog({ properties: ['openDirectory'] });
-                if (directoryNames && directoryNames.length) {
-                    this.folderName = directoryNames[0];
-                }
+            addHandle() {
+                console.log("新增");
+                this.dialogVisible = true
             },
-            clearFileNames() {
-                this.filesData = [];
-                this.folderName = '';
+            config() {
+
             },
-            outCurrentPlugin () {
-                utools.outPlugin();
-                utools.hideMainWindow();
+            help() {
+
             },
-            createCurrentFolder(){
-                window.createCurrentFolder(this.folderName)
-                utools.showNotification('文件夹创建完成');
-                this.clearFileNames();
-                this.outCurrentPlugin();
+            choseNavBtn(id, index) {
+                this.choseNav = id
+                this.content = '内容' + this.navlist[index].laber
             },
-            renameFiles(){
-                console.log(this.filesData);
-                console.log(this.folderName);
-                console.log("------");
-                window.renameFiles(this.filesData,["v2025"])
-                console.log("------");
-                utools.showNotification('增加时间戳完成');
-                console.log(this.folderName);
-                this.clearFileNames();
-                this.outCurrentPlugin();
-            },
-            moveOrCopyFile(copy) {
-                window.moveOrCopyFile(this.filesData, this.folderName, copy);
-                utools.showNotification(copy ? '文件或文件夹复制完成' : '文件或文件夹移动完成');
-                this.clearFileNames();
-                this.outCurrentPlugin();
+            addForm() {
+                console.log("22", this.formInfo);
+                this.navlist.push(
+                    {
+                        id: this.formInfo.id,
+                        laber: this.formInfo.laber
+                    }
+                )
+                this.dialogVisible = false
             },
             dragFiles(e) {
                 if (e.dataTransfer && e.dataTransfer.files) {
@@ -57,29 +51,19 @@ window.onload = function () {
                             path: dragFile.path
                         };
                         window.checkDragFile(file);
-                        if(!this.checkExistsFile(file)){
+                        if (!this.checkExistsFile(file)) {
                             this.filesData.push(file);
                         }
                     }
                 }
             },
-            checkExistsFile(file) {
-                return !!this.filesData.find(existsFile => existsFile.path === file.path);
-            },
-            removeFileFromList(file) {
-                const idx = this.filesData.indexOf(file);
-                this.filesData.splice(idx, 1);
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => { });
             }
-        },
-        mounted() {
-            document.documentElement.className = utools.isDarkColors() ? 'dark' : ''
-            utools.onPluginEnter(({ code, type, payload, optional }) => {
-                console.log('用户进入插件', code, type, payload)
-                if (type === "files") {
-                    this.filesData = payload || []
-                }
-            });
-            this.currentFolderPath = utools.getCurrentFolderPath()
         }
-    }).mount("#app");
+    });
 }
