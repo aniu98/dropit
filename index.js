@@ -2,11 +2,11 @@ window.onload = function () {
     const app = new Vue({
         el: "#app",
         data: {
-            msg: "Hello World",
+            msg: "dropit",
             count: 6666,
             dialogVisible: false,
             choseNav: 1,
-            content: "右侧标题1",
+            content: "协议",
             formInfo: {
                 laber: '',
                 id: ''

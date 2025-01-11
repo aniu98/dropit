@@ -98,13 +98,21 @@ console.log(new Date())
 const template = ""
 console.log(parseAndReplaceVariables(template, Associationsconfig.context));
 
-//处理文件 
-function dealFile(files, association) {
+function matchFileAndAssociation(files, association){
+    const actions=[];
     files.forEach(element => {
-        const FileName = element.path;
+        const FileName = element.birthtimeMs;
         console.log(FileName)
-
+        actions.push({
+            action:"$0",
+            Destination:""
+        });
     });
+    return actions;
+}
+//处理文件 
+function dealFile(files, actions) {
+
 }
 //test
 // const files =[fs.readFileSync(filesPath[0])]
@@ -114,10 +122,10 @@ try {
 
     console.log(`文件大小: ${files.size} 字节`);
     console.log(`创建时间: ${files.ctime}`);
-    console.log(`修改时间: ${files.path}`);
+    // console.log(`修改时间: ${files.path}`);
     const association = parseConfig(configText);
     console.log(files);
-    dealFile([files], association)
+    matchFileAndAssociation([files], association)
     // ... 更多属性
 } catch (err) {
     console.error(`获取文件属性失败: ${err.message}`);
