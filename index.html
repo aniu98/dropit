@@ -5,106 +5,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dropit</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-        }
-
-        .box {
-            width: 100%;
-            height: 100vh;
-            display: flex;
-        }
-
-        .left {
-            width: 10%;
-            min-width: 150px;
-            background: rgb(130, 133, 138);
-            position: relative;
-        }
-
-        .right {
-            flex: 1;
-            padding: 20px;
-            background: rgb(247, 246, 246);
-        }
-
-        .nav {
-            height: 30px;
-            line-height: 30px;
-            padding: 10px;
-        }
-
-        .nav_title {
-            padding-left: 10px;
-            color: white;
-        }
-
-        .nav_bottom {
-            float: left;
-            position: absolute;
-            bottom: 20px;
-            left: 5px;
-            cursor: pointer;
-
-        }
-
-        .chose_nav {
-            background: rgb(116, 117, 122) !important;
-        }
-
-        .content_submit {
-            position: absolute;
-            width: 100px;
-            border: none;
-            color: white;
-            background: rgb(24, 238, 120);
-            padding: 10px;
-            right: 10px;
-            bottom: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
-    <div class="box" div id="app" @click="dragFiles">
+    <div class="box" id="app" @dragover.prevent="handleDragOver" @drop.prevent="handleDrop">
+        <!-- 左侧导航 -->
         <div class="left">
             <div class="nav" v-for="(item,index) in navlist" :class="choseNav==item.id? 'chose_nav':''"
                 @click="choseNavBtn(item.id,index)">
                 <div>
                     <span class="nav_title">{{item.laber}}</span>
+                    <span class="edit" @click.stop="addRules">
+                        <svg t="1736520353214" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" p-id="2468"
+                            data-spm-anchor-id="a313x.search_index.0.i19.34a13a81RevhYQ" width="16" height="16">
+                            <path
+                                d="M604.774 44.1a34.133 34.133 0 0 1 48.265 0L814.558 206.03a34.133 34.133 0 0 1 0.683 47.513l-459.162 486.81a34.133 34.133 0 0 1-18.227 10.103L104.516 796.74a34.133 34.133 0 0 1-39.8-41.642l54.205-219.205a34.133 34.133 0 0 1 9.01-15.974L604.844 44.1zM182.886 561.562l-38.98 157.764 169.984-33.724L742.878 230.81 628.873 116.53 182.886 561.493z"
+                                p-id="2469" data-spm-anchor-id="a313x.search_index.0.i18.34a13a81RevhYQ"
+                                class="selected" fill="#ffffff"></path>
+                            <path
+                                d="M650.581 328.158L530.978 214.153l-48.264 47.854L603.75 377.856zM84.651 981.06h849.92a34.133 34.133 0 0 0 0-68.266H84.65a34.133 34.133 0 1 0 0 68.266z"
+                                p-id="2470" data-spm-anchor-id="a313x.search_index.0.i20.34a13a81RevhYQ"
+                                class="selected" fill="#ffffff"></path>
+                        </svg>
+                    </span>
                 </div>
             </div>
             <div class="nav_bottom">
-                <div class="icon" @click="addHandle">➕</div>
+                <div class="icon" @click="addRules">➕</div>
                 <div class="icon" @click="config">⚙️</div>
                 <div class="icon" @click="help">❓</div>
             </div>
 
         </div>
+        <!-- 右侧 -->
         <div class="right">
             {{content}}
+            <tankuang></tankuang>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>操作</th>
+                        <th>目标</th>
+                        <th>结果</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in tableList">
+                        <td>
+                            <input class="table_input" v-model="item.name" value="item.name" />
+                        </td>
+                        <td>
+                            <input class="table_input" v-model="item.operate" value="item.operate" />
+                        </td>
+                        <td>
+                            <input class="table_input" v-model="item.target" value="item.target" />
+                        </td>
+                        <td>
+                            <input class="table_input" v-model="item.result" value="item.result" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <div>
                 <button class="content_submit">处理</button>
             </div>
         </div>
-        <div>
-            <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
-                <el-form :model="formInfo" ref="formInfo" label-width="50px" class="demo-ruleForm">
-                    <el-form-item label="id" prop="id">
-                        <el-input v-model.number="formInfo.id" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item label="名称" prop="age">
-                        <el-input v-model.number="formInfo.laber" autocomplete="off"></el-input>
-                    </el-form-item>
-                </el-form>
-                <span slot="footer" class="dialog-footer">
-                    <el-button @click="dialogVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="addForm">确 定</el-button>
-                </span>
-            </el-dialog>
+        <!-- 新增导航弹框 -->
+        <div class="tankaung_box" v-if="showAddNav">
+            <div class="tankuang_cart">
+                <div class="tankuang_title">
+                    <div class="tankuang_laber">
+                        新增
+                    </div>
+                    <div class="tankuang_close" @click="handldRulesTankuang">
+                        X
+                    </div>
+                </div>
+                <div class="tankuang_laber">
+                    <form :model="formInfo" action="">
+                        <div class="form_item">
+                            <div class="form_laber">id</div>
+                            <div class="tankuang_laber">
+                                <input v-model.number="formInfo.id" class="form_input" />
+                            </div>
+                        </div>
+                        <div class="form_item">
+                            <div class="form_laber">名称</div>
+                            <div class="tankuang_laber">
+                                <input v-model.number="formInfo.laber" class="form_input" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tankuang_btn_box">
+                    <div class="tankuang_laber">
+                        <button class="tankuang_cancel" @click="handldRulesTankuang">取消</button>
+                    </div>
+                    <div class="tankuang_laber">
+                        <button class="tankuang_sure"  @click="addForm">确定</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -112,11 +116,12 @@
     <script src="./assets/util.js"></script>
     <script src="./assets/element-ui@2.15.14.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
-    <script src="https://unpkg.com/vue@2/dist/vue.js"></script>
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 
     <script src="index.js"></script>
     <script src="./assets/util.js"></script>
+    <script src="./components/tankuang.html">
+        
+    </script>
 </body>
 
 </html>

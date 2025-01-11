@@ -1,0 +1,190 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.box {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.left {
+    width: 10%;
+    min-width: 150px;
+    background: rgb(130, 133, 138);
+    position: relative;
+}
+
+.right {
+    flex: 1;
+    padding: 20px;
+    background: rgb(247, 246, 246);
+}
+
+.nav {
+    height: 30px;
+    line-height: 30px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.nav_title {
+    padding-left: 10px;
+    color: white;
+}
+
+.nav_bottom {
+    float: left;
+    position: absolute;
+    bottom: 20px;
+    left: 5px;
+    cursor: pointer;
+
+}
+
+.chose_nav {
+    background: rgb(116, 117, 122) !important;
+}
+
+.content_submit {
+    position: absolute;
+    width: 100px;
+    border: none;
+    color: white;
+    background: rgb(24, 238, 120);
+    padding: 10px;
+    right: 10px;
+    bottom: 20px;
+}
+
+.drop-zone {
+    width: 300px;
+    height: 200px;
+    border: 2px dashed #ccc;
+    line-height: 200px;
+    text-align: center;
+    color: #ccc;
+    position: relative;
+}
+
+table {
+    width: 100%;
+    border: 1px solid rgb(202, 202, 202);
+    border-collapse: collapse;
+    text-align: center;
+}
+
+tr {
+    display: flex;
+}
+
+td,
+th {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid rgb(202, 202, 202);
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.table_input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: none;
+    text-align: center;
+}
+
+.table_input:focus {
+    outline: none;
+}
+
+.edit{
+    position: relative;
+    top: 3px;
+    left: 10px;
+}
+
+.tankaung_box{
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0 , .5) ;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tankuang_cart{
+    min-width: 400px;
+    min-height: 200px;
+    background: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding:20px;
+    
+}
+.tankuang_title{
+    margin-bottom: 20PX;
+    display: flex;
+}
+.tankuang_laber{
+    flex: 1;
+}
+.tankuang_close{
+    width: 23px;
+    cursor: pointer;
+}
+
+.tankuang_btn_box{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    text-align: center;
+}
+.tankuang_sure{
+    width: 104px;
+    height: 40px;
+    background: #53de87;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.tankuang_cancel{
+    width: 102px;
+    height: 38px;
+    background: none;
+    border: 1px solid gray;
+    color: gray;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form_item{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.form_laber{
+    width: 40px;
+    padding: 10px;
+    text-align: right;
+}
+.form_input{
+    width: 90%;
+    height: 35px;
+    border: 1px solid rgb(183, 183, 183);
+    padding:  0 10px;
+    border-radius: 3px;
+}
+
+.form_input:focus{
+    border: 1px solid rgb(81, 231, 141);
+}
