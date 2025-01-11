@@ -84,21 +84,6 @@ window.onload = function () {
                 this.clearFileNames();
                 this.outCurrentPlugin();
             },
-            dragFiles(e) {
-                console.log("sss");
-                if (e.dataTransfer && e.dataTransfer.files) {
-                    for (let dragFile of e.dataTransfer.files) {
-                        const file = {
-                            name: dragFile.name,
-                            path: dragFile.path
-                        };
-                        // window.checkDragFile(file);
-                        if (!this.checkExistsFile(file)) {
-                            this.filesData.push(file);
-                        }
-                    }
-                }
-            },
             handleClose(done) {
                 this.$confirm('确认关闭？')
                     .then(_ => {
