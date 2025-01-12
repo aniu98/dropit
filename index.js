@@ -2,9 +2,9 @@
 window.onload = function () {
     const app = new Vue({
         el: "#app",
-        components:{
-           tankuang:'tankuang'
-        },
+        // components:{
+        //    tankuang:'tankuang'
+        // },
         data: {
             msg: "Hello World",
             count: 6666,
@@ -42,7 +42,9 @@ window.onload = function () {
                 for (let i = 0; i < files.length; i++) {
                     const file = files[i];
                     // 处理文件对象 file
+                    const matchResult=matchFileAndAssociation(file,parseConfig(configText))
                     console.log(file);
+                    this.tableList.push(matchResult)
                 }
             },
             handldRulesTankuang(){
