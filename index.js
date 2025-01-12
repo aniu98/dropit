@@ -2,23 +2,13 @@
 window.onload = function () {
     const app = new Vue({
         el: "#app",
-        // components:{
-        //    tankuang:'tankuang'
-        // },
         data: {
             msg: "Hello World",
-            count: 6666,
             dialogVisible: false,
             showAddNav:false,
             choseNav: 1,
             content: "右侧标题1",
             tableList:[
-                {
-                  name:"名称1",
-                  operate:'复制',
-                  target:'目标',
-                  result:"结果"
-                }
             ],
             formInfo: {
                 laber: '',
@@ -27,7 +17,7 @@ window.onload = function () {
             navlist: [
                 {
                     id: 1,
-                    laber: '标题1',
+                    laber: 'default',
                 }
             ],
             filesData: []

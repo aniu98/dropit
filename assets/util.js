@@ -83,15 +83,12 @@ const replacedString = replaceMatchingPattern(originalString, "newFileName.zip")
 console.log(replacedString); // Outputs: newFileName.zip
 
 
-function parseAndReplaceVariables(template, context) {
+function parseAndReplaceVariables(file,template) {
     return template.replace(/%(\w+)%/g, (match, variable) => {
-        return context[variable] || match;
+        
+        return Associationsconfig.context[variable] || match;
     });
 }
-
-console.log(new Date())
-const template = ""
-console.log(parseAndReplaceVariables(template, Associationsconfig.context));
 
 function matchFilesAndAssociation(files, association){
     const actions=[];
@@ -124,14 +121,9 @@ function matchFileAndAssociation(file, association){
         const regex = new RegExp(association[i].properties.Rules);
         console.log(regex.test(file.name));
         if(regex.test(file.name)){          
-            action.name=file.path;
+            action.name=file.name;
             action.operate=Associationsconfig.Action[association[i].properties.Action];
-            action.target="test"
-                // name:file.path,
-                // operate:Associationsconfig.Action[association[i].Action],
-            //     target:'目标',
-            //     result:""
-            // }
+            action.target=parseAndReplaceVariables(file,association[i].properties.Destination);
             console.log(action);
         }
         

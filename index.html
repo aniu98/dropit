@@ -12,6 +12,7 @@
     <div class="box" id="app" @dragover.prevent="handleDragOver" @drop.prevent="handleDrop">
         <!-- 左侧导航 -->
         <div class="left">
+            <span class="nav_title">协议</span>
             <div class="nav" v-for="(item,index) in navlist" :class="choseNav==item.id? 'chose_nav':''"
                 @click="choseNavBtn(item.id,index)">
                 <div>
