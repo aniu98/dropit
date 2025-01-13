@@ -27,6 +27,12 @@ Associationsconfig = {
         FileExt: "txt"
     }
 }
+function getFileName(fileName) {
+    return fileName.substring(0, fileName.lastIndexOf("."))
+}
+function getExtension (fileName) {
+    return fileName.substring(fileName.lastIndexOf("."))
+}
 // 解析 配置文件 
 function parseConfig(config) {
     const lines = config.trim().split('\n');
@@ -85,7 +91,12 @@ console.log(replacedString); // Outputs: newFileName.zip
 
 function parseAndReplaceVariables(file,template) {
     return template.replace(/%(\w+)%/g, (match, variable) => {
-        
+        if(match=="%FileName%"){
+            return getFileName(file.name)
+        }
+        if(match=="%FileExt%"){
+            return getExtension(file.name)
+        }
         return Associationsconfig.context[variable] || match;
     });
 }
@@ -116,25 +127,16 @@ function matchFilesAndAssociation(files, association){
 //     return matchedFiles;
 //   }
 function matchFileAndAssociation(file, association){
-    const action={};
     for (let i = 2; i < association.length; i++) {
         const regex = new RegExp(association[i].properties.Rules);
         console.log(regex.test(file.name));
-        if(regex.test(file.name)){          
-            action.name=file.name;
-            action.operate=Associationsconfig.Action[association[i].properties.Action];
-            action.target=parseAndReplaceVariables(file,association[i].properties.Destination);
-            console.log(action);
-        }
-        
+        if(regex.test(file.name)){  
+            file.operate=association[i].properties.Action;
+            file.target=parseAndReplaceVariables(file,association[i].properties.Destination);
+        }  
     }
-    return action;
 }
 
-//处理文件 
-function dealFile(files, actions) {
-
-}
 //test
 // const files =[fs.readFileSync(filesPath[0])]
 

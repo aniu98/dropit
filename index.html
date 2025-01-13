@@ -54,24 +54,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item in tableList">
+                    <tr v-for="fileData in filesData">
                         <td>
-                            <input class="table_input" v-model="item.name" value="item.name" />
+                            <input class="table_input" v-model="fileData.name" value="item.name" />
                         </td>
                         <td>
-                            <input class="table_input" v-model="item.operate" value="item.operate" />
+                            <input class="table_input" v-model="Associationsconfig.Action[fileData.operate]" value="item.operate" />
                         </td>
                         <td>
-                            <input class="table_input" v-model="item.target" value="item.target" />
+                            <input class="table_input" v-model="fileData.target" value="item.target" />
                         </td>
                         <td>
-                            <input class="table_input" v-model="item.result" value="item.result" />
+                            <input class="table_input" v-model="fileData.result" value="item.result" />
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div>
-                <button class="content_submit">处理</button>
+                <button class="content_submit" @click="dealFile">处理</button>
             </div>
         </div>
         <!-- 新增导航弹框 -->
