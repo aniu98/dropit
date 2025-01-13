@@ -13,10 +13,10 @@
         <!-- 左侧导航 -->
         <div class="left">
             <span class="nav_title">协议</span>
-            <div class="nav" v-for="(item,index) in navlist" :class="choseNav==item.id? 'chose_nav':''"
+            <div class="nav" v-for="(item,index) in associations" :class="choseNav==item.id? 'chose_nav':''"
                 @click="choseNavBtn(item.id,index)">
                 <div>
-                    <span class="nav_title">{{item.laber}}</span>
+                    <span class="nav_title">{{item.name}}</span>
                     <span class="edit" @click.stop="addRules">
                         <svg t="1736520353214" class="icon" viewBox="0 0 1024 1024" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" p-id="2468"
@@ -59,10 +59,10 @@
                             <input class="table_input" v-model="fileData.name" value="item.name" />
                         </td>
                         <td>
-                            <input class="table_input" v-model="Associationsconfig.Action[fileData.operate]" value="item.operate" />
+                            <input class="table_input" v-model="fileData.actionName" value="item.operate" />
                         </td>
                         <td>
-                            <input class="table_input" v-model="fileData.target" value="item.target" />
+                            <input class="table_input" v-model="fileData.destination" value="item.target" />
                         </td>
                         <td>
                             <input class="table_input" v-model="fileData.result" value="item.result" />
@@ -96,7 +96,7 @@
                         <div class="form_item">
                             <div class="form_laber">名称</div>
                             <div class="tankuang_laber">
-                                <input v-model.number="formInfo.laber" class="form_input" />
+                                <input v-model.number="formInfo.name" class="form_input" />
                             </div>
                         </div>
                     </form>
@@ -112,15 +112,10 @@
             </div>
         </div>
     </div>
-
-    <!-- <script src="./assets/vue.js"></script>
-    <script src="./assets/util.js"></script>
-    <script src="./assets/element-ui@2.15.14.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
-
     <script src="index.js"></script>
     <script src="./assets/util.js"></script>
-    <!-- <script src="./components/tankuang.html"> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script> -->
+    <script src="./assets/vue.js"></script>
         
     </script>
 </body>

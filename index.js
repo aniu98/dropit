@@ -2,42 +2,55 @@
 window.onload = function () {
     const app = new Vue({
         el: "#app",
-        data: {
+        data:{
             msg: "dropit",
             dialogVisible: false,
             showAddNav: false,
             choseNav: 1,
             content: "文件列表",
             filesData: [
-            ],
-            formInfo: {
-                laber: '',
-                id: ''
-            },
-            navlist: [
                 {
-                    id: 1,
-                    laber: 'default',
+                    isDirectory: false,
+                    iisFile: true,
+                    name: "logo.png",
+                    path: "path",
+                    action: "$4",
+                    actionName: "重命名",
+                    destination: "",
+                    result:""
+                }
+            ],
+            associations: [
+                {
+                    id: '1',
+                    name: "default",
+                    actived: true,
+                    associationRules: [
+                        {
+                            state: "Enabled",
+                            rules: ".*",
+                            action: "$4",
+                            destination:"%FileName%V%CurrentYear%%CurrentMonth%%CurrentDay%.%FileExt%"
+                        }
+                    ]
                 }
             ],
             currentFolderPath: "",
             currentRule: {}
-
+        
         },
         methods: {
             handleDragOver(event) {
                 // 可以添加一些视觉反馈
             },
             preParse() {
-                this.currentRule = parseConfig(configText);
-                for (let i = 0; i < this.filesData.length; i++) {
-                    const file = this.filesData[i];
-                    // 处理文件对象 file
-                    const matchResult = matchFileAndAssociation(file, this.currentRule)
-                    // if (Object.keys(matchResult) != 0) {
-                    //     this.filesData.push(matchResult)
-                    // }
-                }
+                this.associations.forEach(e => {
+                    if (e.actived) {
+                        for (let i = 0; i < this.filesData.length; i++) {
+                            matchFileAndAssociation(this.filesData[i], e.associationRules)
+                        }
+                    }
+                });
             },
             handleDrop(e) {
                 if (e.dataTransfer && e.dataTransfer.files) {
@@ -47,7 +60,7 @@ window.onload = function () {
                             path: dragFile.path
                         };
                         window.checkDragFile(file);
-                        if(!this.checkExistsFile(file)){
+                        if (!this.checkExistsFile(file)) {
                             this.filesData.push(file);
                         }
                     }
@@ -60,7 +73,8 @@ window.onload = function () {
             //处理文件
             dealFile() {
                 console.log(this.filesData);
-                window.renameFiles(this.filesData, ["v2025"])
+                // window.renameFiles(this.filesData, ["v2025"])
+                window.renameFile(this.filesData[1])
                 utools.showNotification('增加时间戳完成');
                 this.clearFileNames();
                 this.outCurrentPlugin();
@@ -72,7 +86,7 @@ window.onload = function () {
                 console.log("新加规则");
                 this.showAddNav = true,
                     this.formInfo = {
-                        laber: '',
+                        name: '',
                         id: ''
                     }
             },
@@ -84,14 +98,14 @@ window.onload = function () {
             },
             choseNavBtn(id, index) {
                 this.choseNav = id
-                this.content = '内容' + this.navlist[index].laber
+                this.content = '内容' + this.associations[index].name
             },
             addForm() {
                 console.log("22", this.formInfo);
-                this.navlist.push(
+                this.associations.push(
                     {
                         id: this.formInfo.id,
-                        laber: this.formInfo.laber
+                        name: this.formInfo.name
                     }
                 )
                 this.showAddNav = false
@@ -108,19 +122,16 @@ window.onload = function () {
         mounted: function () {
             // TODO 主题
             // document.documentElement.className = utools.isDarkColors() ? 'dark' : ''
-            utools.onPluginEnter(({ code, type, payload, optional }) => {
-                console.log('用户进入插件', code, type, payload)
-                this.filesData = [];
-                if (type === "files") {
-                    // this.filesData = payload || []
-                    for (let i = 0; i < payload.length; i++) {
-                        this.preParse(payload[i])
-                    }
-                }
-                //
+            // utools.onPluginEnter(({ code, type, payload, optional }) => {
+            //     console.log('用户进入插件', code, type, payload)
+            //     this.filesData = [];
+            //     if (type === "files") {
+            //         this.filesData = payload || []
+            //     }
+            //     //
 
-            });
-            this.currentFolderPath = utools.getCurrentFolderPath()
+            // });
+            // this.currentFolderPath = utools.getCurrentFolderPath()
         }
     });
 }

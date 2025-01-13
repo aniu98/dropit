@@ -81,8 +81,8 @@ const renameFiles = function (files, newfileNames) {
   //文件路径
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
-    const filePath=path.dirname(file.path);
-    const newFilename=newfileNames[i]+path.extname(file.path);
+    const filePath = path.dirname(file.path);
+    const newFilename = newfileNames[i] + path.extname(file.path);
     const pathToFile = file.path;
     const newPathToFile = path.join(filePath, newFilename)
     //文件重命名
@@ -97,14 +97,32 @@ const renameFiles = function (files, newfileNames) {
   }
 
 
+
+
 }
 
-
+const renameFile = function (file) {
+  //文件路径
+  const filePath = path.dirname(file.path);
+  const newFilename = file.destination+ path.extname(file.path);
+  const pathToFile = file.path;
+  const newPathToFile = path.join(filePath, newFilename)
+  //文件重命名
+  fs.rename(pathToFile, newPathToFile, function (err) {
+    if (err) {
+      throw err
+    } else {
+      console.log("Successfully renamed the file!")
+    }
+  })
+  console.log("end")
+}
 module.exports = {
   createCurrentFolder,
   moveOrCopyFile,
   customMoveFile,
   customCopyFile,
   checkDragFile,
-  renameFiles
+  renameFiles,
+  renameFile
 }
