@@ -40,7 +40,6 @@
     bottom: 20px;
     left: 5px;
     cursor: pointer;
-
 }
 
 .chose_nav {
@@ -187,4 +186,8 @@ th {
 
 .form_input:focus{
     border: 1px solid rgb(81, 231, 141);
+}
+
+.icon{
+    display: inline
 }

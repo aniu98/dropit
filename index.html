@@ -56,16 +56,16 @@
                 <tbody>
                     <tr v-for="fileData in filesData">
                         <td>
-                            <input class="table_input" v-model="fileData.name" value="item.name" />
+                            <input class="table_input" v-model="fileData.name" value="fileData.name" />
                         </td>
                         <td>
-                            <input class="table_input" v-model="fileData.actionName" value="item.operate" />
+                            <input class="table_input" v-model="fileData.actionName" value="fileData.actionName" />
                         </td>
                         <td>
-                            <input class="table_input" v-model="fileData.destination" value="item.target" />
+                            <input class="table_input" v-model="fileData.destination" value="fileData.actionName" />
                         </td>
                         <td>
-                            <input class="table_input" v-model="fileData.result" value="item.result" />
+                            <input class="table_input" v-model="fileData.result" value="fileData.result" />
                         </td>
                     </tr>
                 </tbody>
@@ -106,7 +106,7 @@
                         <button class="tankuang_cancel" @click="handldRulesTankuang">取消</button>
                     </div>
                     <div class="tankuang_laber">
-                        <button class="tankuang_sure"  @click="addForm">确定</button>
+                        <button class="tankuang_sure" @click="addForm">确定</button>
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@
     <script src="./assets/util.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script> -->
     <script src="./assets/vue.js"></script>
-        
+
     </script>
 </body>
 

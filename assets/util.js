@@ -56,7 +56,7 @@ function getFileName(fileName) {
     return fileName.substring(0, fileName.lastIndexOf("."))
 }
 function getExtension (fileName) {
-    return fileName.substring(fileName.lastIndexOf("."))
+    return fileName.substring(fileName.lastIndexOf(".")+1)
 }
 // 解析 配置文件 
 function parseConfig(config) {
@@ -121,7 +121,7 @@ function matchFilesAndAssociation(files, association){
     });
     return actions;
 }
-
+// 文件匹配规则
 function matchFileAndAssociation(file, associationRules){
     for (let i = 0; i < associationRules.length; i++) {
         const regex = new RegExp(associationRules[i].rules);
@@ -130,6 +130,8 @@ function matchFileAndAssociation(file, associationRules){
             file.action=associationRules[i].action;
             file.actionName=config.action[associationRules[i].action];
             file.destination=parseAndReplaceVariables(file,associationRules[i].destination);
+            // 匹配到规则 终止
+            break;
         }  
     }
 }

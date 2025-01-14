@@ -104,18 +104,19 @@ const renameFiles = function (files, newfileNames) {
 const renameFile = function (file) {
   //文件路径
   const filePath = path.dirname(file.path);
-  const newFilename = file.destination+ path.extname(file.path);
-  const pathToFile = file.path;
-  const newPathToFile = path.join(filePath, newFilename)
+  const newPathToFile = path.join(filePath, file.destination);
+  const result="success‌";
   //文件重命名
-  fs.rename(pathToFile, newPathToFile, function (err) {
+  fs.rename(file.path, newPathToFile, function (err) {
     if (err) {
+      result="failure";
       throw err
     } else {
       console.log("Successfully renamed the file!")
     }
   })
-  console.log("end")
+  console.log("end");
+  return result;
 }
 module.exports = {
   createCurrentFolder,
