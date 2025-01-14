@@ -8,7 +8,7 @@ window.onload = function () {
             showAddNav: false,
             choseIndex: 0,
             choseNav: 1,
-            content: "文件列表",
+            content: "当前协议：",
             filesData: [
                 {
                     isDirectory: false,
