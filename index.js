@@ -6,7 +6,7 @@ window.onload = function () {
             msg: "dropit",
             dialogVisible: false,
             showAddNav: false,
-            choseIndex: 1,
+            choseIndex: 0,
             choseNav: 1,
             content: "文件列表",
             filesData: [
