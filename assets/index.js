@@ -1,4 +1,3 @@
-
 window.onload = function () {
     const app = new Vue({
         el: "#app",
@@ -56,12 +55,18 @@ window.onload = function () {
                 }
             ],
             currentFolderPath: "",
-            currentRule: {}
-
+            currentRule: {},
+            showEditRules: false,
+            currentEditRules: []
         },
         methods: {
             handleDragOver(event) {
-                // 可以添加一些视觉反馈
+                event.preventDefault();
+                this.$el.classList.add('drag-over');
+            },
+            handleDragLeave(event) {
+                event.preventDefault();
+                this.$el.classList.remove('drag-over');
             },
             preParse() {
                 // this.associations.forEach(e => {
@@ -77,7 +82,20 @@ window.onload = function () {
                 
             },
             handleDrop(e) {
+                e.preventDefault();
+                this.$el.classList.remove('drag-over');
+                
                 if (e.dataTransfer && e.dataTransfer.files) {
+                    const dropEffect = document.createElement('div');
+                    dropEffect.className = 'drop-effect';
+                    dropEffect.style.left = e.clientX + 'px';
+                    dropEffect.style.top = e.clientY + 'px';
+                    document.body.appendChild(dropEffect);
+                    
+                    dropEffect.addEventListener('animationend', () => {
+                        document.body.removeChild(dropEffect);
+                    });
+                    
                     for (let dragFile of e.dataTransfer.files) {
                         const file = {
                             name: dragFile.name,
@@ -86,10 +104,11 @@ window.onload = function () {
                         window.checkDragFile(file);
                         if (!this.checkExistsFile(file)) {
                             this.filesData.push(file);
+                            this.createFileAddEffect(file);
                         }
                     }
+                    this.preParse();
                 }
-                this.preParse()
             },
             checkExistsFile(file) {
                 return !!this.filesData.find(existsFile => existsFile.path === file.path);
@@ -122,8 +141,17 @@ window.onload = function () {
                         id: ''
                     }
             },
-            config() {
-
+            editAssociationRules(index) {
+                this.currentEditRules = [...this.associations[this.choseIndex].associationRules];
+                this.showEditRules = true;
+            },
+            handleEditRulesClose() {
+                this.showEditRules = false;
+            },
+            saveRules() {
+                this.associations[this.choseIndex].associationRules = [...this.currentEditRules];
+                this.showEditRules = false;
+                this.preParse();
             },
             help() {
 
@@ -151,6 +179,51 @@ window.onload = function () {
                         done();
                     })
                     .catch(_ => { });
+            },
+            // 添加新规则
+            addNewRule() {
+                this.currentEditRules.push({
+                    state: "Enabled",
+                    rules: ".*",
+                    action: "$4",
+                    destination: ""
+                });
+            },
+            
+            // 删除规则
+            deleteRule(index) {
+                this.currentEditRules.splice(index, 1);
+            },
+            
+            // 上移规则
+            moveRuleUp(index) {
+                if (index > 0) {
+                    const temp = this.currentEditRules[index];
+                    this.currentEditRules[index] = this.currentEditRules[index - 1];
+                    this.currentEditRules[index - 1] = temp;
+                }
+            },
+            
+            // 下移规则
+            moveRuleDown(index) {
+                if (index < this.currentEditRules.length - 1) {
+                    const temp = this.currentEditRules[index];
+                    this.currentEditRules[index] = this.currentEditRules[index + 1];
+                    this.currentEditRules[index + 1] = temp;
+                }
+            },
+            
+            // 添加新方法：创建文件添加动画
+            createFileAddEffect(file) {
+                const fileRow = document.createElement('div');
+                fileRow.className = 'file-add-effect';
+                fileRow.textContent = file.name;
+                document.querySelector('.right').appendChild(fileRow);
+                
+                // 动画结束后移除元素
+                fileRow.addEventListener('animationend', () => {
+                    fileRow.remove();
+                });
             }
         },
         mounted: function () {

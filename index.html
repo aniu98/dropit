@@ -9,7 +9,10 @@
 </head>
 
 <body>
-    <div class="box" id="app" @dragover.prevent="handleDragOver" @drop.prevent="handleDrop">
+    <div class="box" id="app" 
+        @dragover.prevent="handleDragOver"
+        @dragleave.prevent="handleDragLeave"
+        @drop.prevent="handleDrop">
         <!-- 左侧导航 -->
         <div class="left">
             <span class="nav_title">协议</span>
@@ -17,7 +20,7 @@
                 @click="choseNavBtn(item.id,index)">
                 <div>
                     <span class="nav_title">{{item.name}}</span>
-                    <span class="edit" @click.stop="addRules">
+                    <span class="edit" @click.stop="editAssociationRules">
                         <svg t="1736520353214" class="icon" viewBox="0 0 1024 1024" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" p-id="2468"
                             data-spm-anchor-id="a313x.search_index.0.i19.34a13a81RevhYQ" width="16" height="16">
@@ -107,6 +110,67 @@
                     </div>
                     <div class="tankuang_laber">
                         <button class="tankuang_sure" @click="addForm">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 编辑规则弹框 -->
+        <div class="tankaung_box" v-if="showEditRules">
+            <div class="tankuang_cart">
+                <div class="tankuang_title">
+                    <div class="tankuang_laber">
+                        编辑规则
+                    </div>
+                    <div class="tankuang_close" @click="handleEditRulesClose">
+                        X
+                    </div>
+                </div>
+                <div class="tankuang_content">
+                    <div class="rule_actions">
+                        <button class="add_rule_btn" @click="addNewRule">添加规则</button>
+                    </div>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>状态</th>
+                                <th>规则</th>
+                                <th>动作</th>
+                                <th>目标路径</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(rule, index) in currentEditRules">
+                                <td>
+                                    <select v-model="rule.state">
+                                        <option value="Enabled">启用</option>
+                                        <option value="Disabled">禁用</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input class="table_input" v-model="rule.rules" />
+                                </td>
+                                <td>
+                                    <input class="table_input" v-model="rule.action" />
+                                </td>
+                                <td>
+                                    <input class="table_input" v-model="rule.destination" />
+                                </td>
+                                <td class="rule_operations">
+                                    <button class="rule_btn" @click="moveRuleUp(index)" :disabled="index === 0">↑</button>
+                                    <button class="rule_btn" @click="moveRuleDown(index)" :disabled="index === currentEditRules.length - 1">↓</button>
+                                    <button class="rule_btn delete" @click="deleteRule(index)">×</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tankuang_btn_box">
+                    <div class="tankuang_laber">
+                        <button class="tankuang_cancel" @click="handleEditRulesClose">取消</button>
+                    </div>
+                    <div class="tankuang_laber">
+                        <button class="tankuang_sure" @click="saveRules">保存</button>
                     </div>
                 </div>
             </div>
