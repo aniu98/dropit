@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="nav_bottom">
-                <div class="icon" @click="addRules">➕</div>
+                <div class="icon" @click="addAssociation">➕</div>
                 <div class="icon" @click="config">⚙️</div>
                 <div class="icon" @click="help">❓</div>
             </div>
@@ -82,24 +82,24 @@
             <div class="tankuang_cart">
                 <div class="tankuang_title">
                     <div class="tankuang_laber">
-                        新增
+                        新增协议
                     </div>
                     <div class="tankuang_close" @click="handldRulesTankuang">
                         X
                     </div>
                 </div>
                 <div class="tankuang_laber">
-                    <form :model="formInfo" action="">
+                    <form :model="associationInfo" action="">
                         <div class="form_item">
                             <div class="form_laber">id</div>
                             <div class="tankuang_laber">
-                                <input v-model.number="formInfo.id" class="form_input" />
+                                <input v-model.number="associationInfo.id" class="form_input" />
                             </div>
                         </div>
                         <div class="form_item">
                             <div class="form_laber">名称</div>
                             <div class="tankuang_laber">
-                                <input v-model.number="formInfo.name" class="form_input" />
+                                <input v-model.number="associationInfo.name" class="form_input" />
                             </div>
                         </div>
                     </form>
@@ -109,7 +109,7 @@
                         <button class="tankuang_cancel" @click="handldRulesTankuang">取消</button>
                     </div>
                     <div class="tankuang_laber">
-                        <button class="tankuang_sure" @click="addForm">确定</button>
+                        <button class="tankuang_sure" @click="saveAssociation">确定</button>
                     </div>
                 </div>
             </div>
