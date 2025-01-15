@@ -79,23 +79,26 @@ window.onload = function () {
                 for (let i = 0; i < this.filesData.length; i++) {
                     matchFileAndAssociation(this.filesData[i], this.associations[this.choseIndex].associationRules)
                 }
-                
+
+            },
+            config() { 
+                // TODO 配置按键
             },
             handleDrop(e) {
                 e.preventDefault();
                 this.$el.classList.remove('drag-over');
-                
+
                 if (e.dataTransfer && e.dataTransfer.files) {
                     const dropEffect = document.createElement('div');
                     dropEffect.className = 'drop-effect';
                     dropEffect.style.left = e.clientX + 'px';
                     dropEffect.style.top = e.clientY + 'px';
                     document.body.appendChild(dropEffect);
-                    
+
                     dropEffect.addEventListener('animationend', () => {
                         document.body.removeChild(dropEffect);
                     });
-                    
+
                     for (let dragFile of e.dataTransfer.files) {
                         const file = {
                             name: dragFile.name,
@@ -189,12 +192,12 @@ window.onload = function () {
                     destination: ""
                 });
             },
-            
+
             // 删除规则
             deleteRule(index) {
                 this.currentEditRules.splice(index, 1);
             },
-            
+
             // 上移规则
             moveRuleUp(index) {
                 if (index > 0) {
@@ -203,7 +206,7 @@ window.onload = function () {
                     this.currentEditRules[index - 1] = temp;
                 }
             },
-            
+
             // 下移规则
             moveRuleDown(index) {
                 if (index < this.currentEditRules.length - 1) {
@@ -212,14 +215,14 @@ window.onload = function () {
                     this.currentEditRules[index + 1] = temp;
                 }
             },
-            
+
             // 添加新方法：创建文件添加动画
             createFileAddEffect(file) {
                 const fileRow = document.createElement('div');
                 fileRow.className = 'file-add-effect';
                 fileRow.textContent = file.name;
                 document.querySelector('.right').appendChild(fileRow);
-                
+
                 // 动画结束后移除元素
                 fileRow.addEventListener('animationend', () => {
                     fileRow.remove();
