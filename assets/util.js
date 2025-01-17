@@ -1,9 +1,6 @@
 
 config = {
     state: ["Disabled", "Enabled"],
-    action: {
-        $0: "移动", $1: "复制", $2: "压缩", $3: "提取", $4: "重命名", $5: "删除", $6: "分割", $7: "连接", $8: "加密", $9: "解密", $10: "打开方式", $11: "打印", $12: "上载", $13: "使用邮件发送", $14: "创建照片陈列室", $15: "创建清单", $16: "创建播放列表", $17: "创建快捷方式", $18: "复制到剪切板", $19: "修改属性", $20: "忽略",
-    }
 }
 // 解析 配置文件 
 function parseConfig(config) {
@@ -63,7 +60,7 @@ function matchFileAndAssociation(file, associationRules) {
         console.log(regex.test(file.name));
         if (regex.test(file.name)) {
             file.action = associationRules[i].action;
-            file.actionName = config.action[associationRules[i].action];
+            file.actionName = operationMap[associationRules[i].action].cn;
             file.destination = replacePlaceholders(file, associationRules[i].destination)
             // 匹配到规则 终止
             break;

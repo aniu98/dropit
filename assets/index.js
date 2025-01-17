@@ -43,12 +43,10 @@ window.onload = function () {
                     matchFileAndAssociation(this.filesData[i], this.associations[this.choseIndex].associationRules)
                 }
 
-<<<<<<< HEAD
             },
             config() { 
                 // TODO 配置按键
-=======
->>>>>>> 42bbfcfda939b6202733f27d75d07ae3939612fc
+
             },
             handleDrop(e) {
                 e.preventDefault();
@@ -103,16 +101,16 @@ window.onload = function () {
                 this.showAddNav = false
             },
             editAssociationRules(index) {
-                this.currentEditRules = [...this.associations[this.choseIndex].associationRules];
+                this.currentEditRules =this.associations[this.choseIndex].associationRules;
                 this.showEditRules = true;
             },
             handleEditRulesClose() {
                 this.showEditRules = false;
             },
             saveRules() {
-                this.associations[this.choseIndex].associationRules = [...this.currentEditRules];
+                this.associations[this.choseIndex].associationRules = [this.currentEditRules];
                 this.showEditRules = false;
-                this.preParse();
+
             },
             config() {
                 

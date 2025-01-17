@@ -105,32 +105,95 @@ const fileOperations = {
 };
 
 const operationMap = {
-    "$0": "move",
-    "$1": "copy",
-    "$2": "compress",
-    "$3": "extract",
-    "$4": "rename",
-    "$5": "delete",
-    "$6": "split",
-    "$7": "join",
-    "$8": "encrypt",
-    "$9": "decrypt",
-    "$10": "openWith",
-    "$11": "print",
-    "$12": "upload",
-    "$13": "sendByEmail",
-    "$14": "createPhotoGallery",
-    "$15": "createChecklist",
-    "$16": "createPlaylist",
-    "$17": "createShortcut",
-    "$18": "copyToClipboard",
-    "$19": "modifyProperties",
-    "$20": "ignore"
+    "$0": {
+        en: "move",
+        cn: "移动"
+    },
+    "$1": {
+        en: "copy",
+        cn: "复制"
+    },
+    "$2": {
+        en: "compress",
+        cn: "压缩"
+    },
+    "$3": {
+        en: "extract",
+        cn: "提取"
+    },
+    "$4": {
+        en: "rename",
+        cn: "重命名"
+    },
+    "$5": {
+        en: "delete",
+        cn: "删除"
+    },
+    "$6": {
+        en: "split",
+        cn: "分割"
+    },
+    "$7": {
+        en: "join",
+        cn: "连接"
+    },
+    "$8": {
+        en: "encrypt",
+        cn: "加密"
+    },
+    "$9": {
+        en: "decrypt",
+        cn: "解密"
+    },
+    "$10": {
+        en: "openWith",
+        cn: "打开方式"
+    },
+    "$11": {
+        en: "print",
+        cn: "打印"
+    },
+    "$12": {
+        en: "upload",
+        cn: "上载"
+    },
+    "$13": {
+        en: "sendByEmail",
+        cn: "使用邮件发送"
+    },
+    "$14": {
+        en: "createPhotoGallery",
+        cn: "创建照片陈列室"
+    },
+    "$15": {
+        en: "createChecklist",
+        cn: "创建清单"
+    },
+    "$16": {
+        en: "createPlaylist",
+        cn: "创建播放列表"
+    },
+    "$17": {
+        en: "createShortcut",
+        cn: "创建快捷方式"
+    },
+    "$18": {
+        en: "copyToClipboard",
+        cn: "复制到剪切板"
+    },
+    "$19": {
+        en: "modifyProperties",
+        cn: "修改属性"
+    },
+    "$20": {
+        en: "ignore",
+        cn: "忽略"
+    }
 };
 
 
 function performFileOperation(file) {
-    const operationName = operationMap[file.action];
+    const operationName = operationMap[file.action.en];
     if (!operationName) {
         throw new Error(`未定义的操作键: ${file.action}`);
     }
