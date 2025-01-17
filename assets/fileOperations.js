@@ -193,7 +193,7 @@ const operationMap = {
 
 
 function performFileOperation(file) {
-    const operationName = operationMap[file.action.en];
+    const operationName = operationMap[file.action].en;
     if (!operationName) {
         throw new Error(`未定义的操作键: ${file.action}`);
     }
