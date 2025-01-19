@@ -9,9 +9,7 @@
 </head>
 
 <body>
-    <div class="box" id="app" 
-        @dragover.prevent="handleDragOver"
-        @dragleave.prevent="handleDragLeave"
+    <div class="box" id="app" @dragover.prevent="handleDragOver" @dragleave.prevent="handleDragLeave"
         @drop.prevent="handleDrop">
         <!-- 左侧导航 -->
         <div class="left">
@@ -157,8 +155,10 @@
                                     <input class="table_input" v-model="rule.destination" />
                                 </td>
                                 <td class="rule_operations">
-                                    <button class="rule_btn" @click="moveRuleUp(index)" :disabled="index === 0">↑</button>
-                                    <button class="rule_btn" @click="moveRuleDown(index)" :disabled="index === currentEditRules.length - 1">↓</button>
+                                    <button class="rule_btn" @click="moveRuleUp(index)"
+                                        :disabled="index === 0">↑</button>
+                                    <button class="rule_btn" @click="moveRuleDown(index)"
+                                        :disabled="index === currentEditRules.length - 1">↓</button>
                                     <button class="rule_btn delete" @click="deleteRule(index)">×</button>
                                 </td>
                             </tr>
