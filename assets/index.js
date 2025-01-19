@@ -108,9 +108,10 @@ window.onload = function () {
                 this.showEditRules = false;
             },
             saveRules() {
-                this.associations[this.choseIndex].associationRules = [this.currentEditRules];
+                console.log("保存规则", this.associations[this.choseIndex].associationRules,this.currentEditRules);
+                this.associations[this.choseIndex].associationRules = this.currentEditRules;
                 this.showEditRules = false;
-
+                this.saveAssociationTodb();
             },
             config() {
                 
@@ -147,7 +148,7 @@ window.onload = function () {
                         ]
                     }
                 )
-                utools.dbStorage.setItem("dropitConfig", this.associations);
+                this.saveAssociationTodb()
                 this.showAddNav = false
             },
 
@@ -202,6 +203,9 @@ window.onload = function () {
                 fileRow.addEventListener('animationend', () => {
                     fileRow.remove();
                 });
+            },
+            saveAssociationTodb(){
+                utools.dbStorage.setItem("dropitConfig", this.associations);
             }
         },
         mounted: function () {
@@ -219,7 +223,7 @@ window.onload = function () {
                 console.log("dbStorage`s valus is ", value);
                 if (!value) {
                     console.log("true", this.associations);
-                    utools.dbStorage.setItem("dropitConfig", this.associations);
+                    this.saveAssociationTodb();
                 } else {
                     this.associations = value;
                     console.log("init asso", this.associations);
