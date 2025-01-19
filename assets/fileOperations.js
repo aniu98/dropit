@@ -2,6 +2,7 @@ const fileOperations = {
     move: (file) => {
         console.log(`正在移动文件: `, file);
 
+        return window.customMoveFile(file.path,file.destination+"\\"+file.name)
     },
     copy: (file) => {
         console.log(`正在复制文件: `, file);
