@@ -6,8 +6,7 @@ const fileOperations = {
     },
     copy: (file) => {
         console.log(`正在复制文件: `, file);
-        // 在这里添加复制文件的具体逻辑
-        // 例如，调用文件系统 API 或使用 Node.js 的 fs 模块
+        return window.customCopyFile(file.path,file.destination+"\\"+file.name)
     },
     compress: (file) => {
         console.log(`正在压缩文件: `, file);
