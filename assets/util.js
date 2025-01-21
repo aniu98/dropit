@@ -57,7 +57,6 @@ function matchFilesAndAssociation(files, association) {
 function matchFileAndAssociation(file, associationRules) {
     for (let i = 0; i < associationRules.length; i++) {
         const regex = new RegExp(associationRules[i].rules);
-        console.log(regex.test(file.name));
         if (regex.test(file.name)) {
             file.action = associationRules[i].action;
             file.actionName = operationMap[associationRules[i].action].cn;
