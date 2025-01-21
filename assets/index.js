@@ -44,7 +44,7 @@ window.onload = function () {
                 }
 
             },
-            config() { 
+            config() {
                 // TODO 配置按键
 
             },
@@ -90,7 +90,7 @@ window.onload = function () {
                 });
                 utools.showNotification('处理完成');
                 //TODO 如果处理失败不退出utool
-                // this.outCurrentPlugin();
+                this.outCurrentPlugin();
             },
             // 退出插件
             outCurrentPlugin() {
@@ -101,20 +101,20 @@ window.onload = function () {
                 this.showAddNav = false
             },
             editAssociationRules(index) {
-                this.currentEditRules =this.associations[this.choseIndex].associationRules;
+                this.currentEditRules = this.associations[this.choseIndex].associationRules;
                 this.showEditRules = true;
             },
             handleEditRulesClose() {
                 this.showEditRules = false;
             },
             saveRules() {
-                console.log("保存规则", this.associations[this.choseIndex].associationRules,this.currentEditRules);
+                console.log("保存规则", this.associations[this.choseIndex].associationRules, this.currentEditRules);
                 this.associations[this.choseIndex].associationRules = this.currentEditRules;
                 this.showEditRules = false;
                 this.saveAssociationTodb();
             },
             config() {
-                
+
             },
             help() { },
             choseNavBtn(id, index) {
@@ -198,13 +198,12 @@ window.onload = function () {
                 fileRow.className = 'file-add-effect';
                 fileRow.textContent = file.name;
                 document.querySelector('.right').appendChild(fileRow);
-
                 // 动画结束后移除元素
                 fileRow.addEventListener('animationend', () => {
                     fileRow.remove();
                 });
             },
-            saveAssociationTodb(){
+            saveAssociationTodb() {
                 utools.dbStorage.setItem("dropitConfig", this.associations);
             }
         },
@@ -213,7 +212,6 @@ window.onload = function () {
             // document.documentElement.className = utools.isDarkColors() ? 'dark' : ''
             utools.onPluginEnter(({ code, type, payload, optional }) => {
                 console.log('用户进入插件', code, type, payload);
-                // utools.dbStorage.setItem("aniu", "10000");
                 this.filesData = [];
                 if (type === "files") {
                     this.filesData = payload || []
