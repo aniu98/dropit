@@ -1,7 +1,6 @@
 const fileOperations = {
     move: (file) => {
         console.log(`正在移动文件: `, file);
-
         return window.customMoveFile(file.path,file.destination+"\\"+file.name)
     },
     copy: (file) => {
