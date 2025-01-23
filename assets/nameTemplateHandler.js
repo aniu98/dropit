@@ -1,9 +1,9 @@
 
 function getFileName(file) {
-    return file.name.substring(0, file.name.lastIndexOf("."))
+    return file.name.lastIndexOf(".") != -1 ? file.name.substring(0, file.name.lastIndexOf(".")) : file.name;
 }
 function getFileExtension(file) {
-    return file.name.substring(file.name.lastIndexOf(".") + 1)
+    return file.name.lastIndexOf(".") != -1 ? file.name.substring(file.name.lastIndexOf(".") + 1) : "";
 }
 
 function getDirectoryInfo(file) {
@@ -87,7 +87,7 @@ function getCounter() {
     return (++count).toString();
 }
 
-function replacePlaceholders(file,inputString,handlers) {
+function replacePlaceholders(file, inputString, handlers) {
     if (!handlers) {
         handlers = myHandlers;
     }
@@ -153,6 +153,6 @@ const file = {
 
 let input = "%FileNameExt%%FileName%%FileExt%%ParentDir%%ParentDirName%%DroppedDir%%DroppedDirName%%CurrentDate%%CurrentYear%%CurrentMonth%%CurrentWeek%%CurrentDay%%CurrentTime%%CurrentHour%%CurrentMinute%%CurrentSecond%%CurrentMonthName%%CurrentMonthShort%%CurrentDayName%%CurrentDayShort%%DateTaken%%UserInput%%Counter%%YearTaken%";
 input = "%FileNameExt%-%FileName%-%FileExt%-%ParentDir%-%ParentDirName%-%DroppedDir%-%DroppedDirName%-%CurrentDate%-%CurrentYear%-%CurrentMonth%-%CurrentWeek%-%CurrentDay%-%CurrentTime%-%CurrentHour%-%CurrentMinute%-%CurrentSecond%-%CurrentMonthName%-%CurrentMonthShort%-%CurrentDayName%-%CurrentDayShort%-%DateTaken%-%UserInput%-%Counter%-%YearTaken%"
-console.log(replacePlaceholders(file,input));
+console.log(replacePlaceholders(file, input));
 
 
