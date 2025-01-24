@@ -1,11 +1,11 @@
 const fileOperations = {
     move: (file) => {
         console.log(`正在移动文件: `, file);
-        return window.customMoveFile(file.path,file.destination+"\\"+file.name)
+        return window.customMoveFile(file.path, file.destination + "\\" + file.name)
     },
     copy: (file) => {
         console.log(`正在复制文件: `, file);
-        return window.customCopyFile(file.path,file.destination+"\\"+file.name)
+        return window.customCopyFile(file.path, file.destination + "\\" + file.name)
     },
     compress: (file) => {
         console.log(`正在压缩文件: `, file);
