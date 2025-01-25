@@ -96,9 +96,6 @@ const renameFiles = function (files, newfileNames) {
     console.log("end")
   }
 
-
-
-
 }
 
 const renameFile = function (file) {
