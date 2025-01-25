@@ -105,11 +105,11 @@ const renameFile = function (file) {
   //文件路径
   const filePath = path.dirname(file.path);
   const newPathToFile = path.join(filePath, file.destination);
-  const result="success‌";
+  const result = "success‌";
   //文件重命名
   fs.rename(file.path, newPathToFile, function (err) {
     if (err) {
-      result="failure";
+      result = "failure";
       throw err
     } else {
       console.log("Successfully renamed the file!")
