@@ -46,8 +46,8 @@ window.onload = function () {
             },
             config() {
                 // TODO 配置按键
-
             },
+            help() { },
             handleDrop(e) {
                 e.preventDefault();
                 this.$el.classList.remove('drag-over');
@@ -113,10 +113,6 @@ window.onload = function () {
                 this.showEditRules = false;
                 this.saveAssociationTodb();
             },
-            config() {
-
-            },
-            help() { },
             choseNavBtn(id, index) {
                 this.choseNav = id;
                 this.choseIndex = index;
