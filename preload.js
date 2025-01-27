@@ -1,4 +1,4 @@
-const { createCurrentFolder, moveOrCopyFile, customCopyFile, customMoveFile, checkDragFile ,renameFiles,renameFile} = require('./utils')
+const { createCurrentFolder, moveOrCopyFile, customCopyFile, customMoveFile, checkDragFile, renameFiles, renameFile } = require('./utils')
 
 window.createCurrentFolder = createCurrentFolder;
 window.moveOrCopyFile = moveOrCopyFile;
