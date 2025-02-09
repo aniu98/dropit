@@ -64,5 +64,11 @@ function matchFileAndAssociation(file, associationRules) {
             // 匹配到规则 终止
             break;
         }
+        // 未匹配到规则
+        if (i === associationRules.length - 1) {
+            file.action = "Unknown";
+            file.actionName = operationMap["Unknown"].cn;
+            file.destination = replacePlaceholders(file, associationRules[i].destination)
+        }        
     }
 }
