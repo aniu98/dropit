@@ -66,8 +66,8 @@ function matchFileAndAssociation(file, associationRules) {
         }
         // 未匹配到规则
         if (i === associationRules.length - 1) {
-            file.action = "Unknown";
-            file.actionName = operationMap["Unknown"].cn;
+            file.action = "$20";
+            file.actionName = operationMap["$20"].cn;
             file.destination = replacePlaceholders(file, associationRules[i].destination)
         }        
     }
