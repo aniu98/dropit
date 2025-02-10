@@ -140,19 +140,19 @@ let myHandlers = {
 };
 
 // 示例使用
-const file = {
-    name: "example.txt",
-    path: "path/to/example.txt",
-    isFile: true,
-    isDirectory: false,
-    metadata: {
-        dateTaken: "2024-01-01",
-        yearTaken: "2024"
-    }
-};
+// const file = {
+//     name: "example.txt",
+//     path: "path/to/example.txt",
+//     isFile: true,
+//     isDirectory: false,
+//     metadata: {
+//         dateTaken: "2024-01-01",
+//         yearTaken: "2024"
+//     }
+// };
 
-let input = "%FileNameExt%%FileName%%FileExt%%ParentDir%%ParentDirName%%DroppedDir%%DroppedDirName%%CurrentDate%%CurrentYear%%CurrentMonth%%CurrentWeek%%CurrentDay%%CurrentTime%%CurrentHour%%CurrentMinute%%CurrentSecond%%CurrentMonthName%%CurrentMonthShort%%CurrentDayName%%CurrentDayShort%%DateTaken%%UserInput%%Counter%%YearTaken%";
-input = "%FileNameExt%-%FileName%-%FileExt%-%ParentDir%-%ParentDirName%-%DroppedDir%-%DroppedDirName%-%CurrentDate%-%CurrentYear%-%CurrentMonth%-%CurrentWeek%-%CurrentDay%-%CurrentTime%-%CurrentHour%-%CurrentMinute%-%CurrentSecond%-%CurrentMonthName%-%CurrentMonthShort%-%CurrentDayName%-%CurrentDayShort%-%DateTaken%-%UserInput%-%Counter%-%YearTaken%"
-console.log(replacePlaceholders(file, input));
+// let input = "%FileNameExt%%FileName%%FileExt%%ParentDir%%ParentDirName%%DroppedDir%%DroppedDirName%%CurrentDate%%CurrentYear%%CurrentMonth%%CurrentWeek%%CurrentDay%%CurrentTime%%CurrentHour%%CurrentMinute%%CurrentSecond%%CurrentMonthName%%CurrentMonthShort%%CurrentDayName%%CurrentDayShort%%DateTaken%%UserInput%%Counter%%YearTaken%";
+// input = "%FileNameExt%-%FileName%-%FileExt%-%ParentDir%-%ParentDirName%-%DroppedDir%-%DroppedDirName%-%CurrentDate%-%CurrentYear%-%CurrentMonth%-%CurrentWeek%-%CurrentDay%-%CurrentTime%-%CurrentHour%-%CurrentMinute%-%CurrentSecond%-%CurrentMonthName%-%CurrentMonthShort%-%CurrentDayName%-%CurrentDayShort%-%DateTaken%-%UserInput%-%Counter%-%YearTaken%"
+// console.log(replacePlaceholders(file, input));
 
 
