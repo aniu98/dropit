@@ -64,11 +64,11 @@ function matchFileAndAssociation(file, associationRules) {
             // 匹配到规则 终止
             break;
         }
-        // 未匹配到规则
+        // 未匹配到规则 默认为 $20
         if (i === associationRules.length - 1) {
             file.action = "$20";
             file.actionName = operationMap["$20"].cn;
             file.destination = replacePlaceholders(file, associationRules[i].destination)
-        }        
+        }
     }
 }
